@@ -1,0 +1,77 @@
+node: 
+	Latest Available Version: v23.3.0 (2024-11-20)  -  https://nodejs.org/en/
+	Path: C:\Program Files\nodejs\node.exe
+			Executable: True
+			Version: v22.11.0
+			In-Path Variable: True
+
+npm: 
+	Latest Available Version: 10.9.0  -  https://www.npmjs.com/
+	Path: C:\Program Files\nodejs\npm
+			Executable: False
+			Version: None
+			In-Path Variable: True
+	Path: C:\Program Files\nodejs\npm.cmd
+			Executable: True
+			Version: 10.9.0
+			In-Path Variable: True
+
+Java: 
+	Latest Available Version: Latest version info not found  -  https://www.oracle.com/java/technologies/javase-jdk11-downloads.html
+	Path: C:\Program Files\Common Files\Oracle\Java\javapath\java.exe
+			Executable: True
+			Version: java version "21" 2023-09-19 LTS
+			In-Path Variable: True
+	Path: C:\Program Files (x86)\Common Files\Oracle\Java\java8path\java.exe
+			Executable: True
+			Version: java version "1.8.0_421"
+			In-Path Variable: True
+
+Python: 
+	Latest Available Version: Release version  -  https://www.python.org/downloads/
+	Path: C:\Users\lewis\anaconda3\python.exe
+			Executable: True
+			Version: Python 3.8.8
+			In-Path Variable: True
+
+Git: 
+	Latest Available Version: Latest version info not found  -  https://git-scm.com/
+	Path: C:\Program Files\Git\cmd\git.exe
+			Executable: True
+			Version: git version 2.39.0.windows.2
+			In-Path Variable: True
+
+Hi: No paths found
+	Latest Available Version: Latest version info not found  -  https://git-scm.com/
+
+Uncovered PATH Directories:
+  C:\Program Files\Common Files\Oracle\Java\javapath
+  C:\Program Files (x86)\Common Files\Oracle\Java\java8path
+  C:\Program Files (x86)\Common Files\Oracle\Java\javapath
+  C:\WINDOWS\system32
+  C:\WINDOWS
+  C:\WINDOWS\System32\Wbem
+  C:\WINDOWS\System32\WindowsPowerShell\v1.0\
+  C:\WINDOWS\System32\OpenSSH\
+  C:\Program Files (x86)\Brackets\command
+  C:\Program Files\PuTTY\
+  C:\Program Files\dotnet\
+  C:\Users\lewis\anaconda3
+  C:\Users\lewis\anaconda3\Scripts
+  C:\Users\lewis\anaconda3\Library\bin
+  C:\Program Files\Git\cmd
+  C:\Program Files\Microsoft VS Code\bin
+  C:\Program Files\MiniZinc\
+  C:\Users\lewis\AppData\Roaming\npm
+  C:\Program Files\Microsoft SQL Server\150\Tools\Binn\
+  C:\ffmpeg\bin
+  C:\Program Files\nodejs\
+  C:\Program Files\MiniZinc"
+  C:\Users\lewis\AppData\Local\Programs\Microsoft VS Code\bin
+  C:\ghcup\bin
+  C:\Users\lewis\AppData\Roaming\npm
+
+Environment Variables:
+  PATH: C:\Program Files\Common Files\Oracle\Java\javapath;C:\Program Files (x86)\Common Files\Oracle\Java\java8path;C:\Program Files (x86)\Common Files\Oracle\Java\javapath;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;C:\Program Files (x86)\Brackets\command;C:\Program Files\PuTTY\;C:\Program Files\dotnet\;C:\Users\lewis\anaconda3;C:\Users\lewis\anaconda3\Scripts;C:\Users\lewis\anaconda3\Library\bin;C:\Program Files\Git\cmd;C:\Program Files\Microsoft VS Code\bin;C:\Program Files\MiniZinc\;C:\Users\lewis\AppData\Roaming\npm;C:\Program Files\Microsoft SQL Server\150\Tools\Binn\;C:\ffmpeg\bin;C:\Program Files\nodejs\;C:\Program Files\MiniZinc";C:\Users\lewis\AppData\Local\Programs\Microsoft VS Code\bin;C:\ghcup\bin;C:\Users\lewis\AppData\Roaming\npm
+  JAVA_HOME: C:\Program Files\Java\jdk-11
+  PYTHON_HOME: Not Set
