@@ -1,28 +1,10 @@
 import os
 import subprocess
-import platform
 import requests
 from glob import glob
 from bs4 import BeautifulSoup
 
-
-SYSTEM_PLATFORM = platform.system()
-RESOURCES = {
-    "node": ["--version", "https://nodejs.org/en/"],
-    "npm": ["--version", "https://www.npmjs.com/"],
-    "Java": ["-version", "https://www.oracle.com/java/technologies/javase-jdk11-downloads.html"],
-    "Python": ["--version", "https://www.python.org/downloads/"],
-    "Git": ["--version", "https://git-scm.com/"],
-    "Hi": ["--version", "https://git-scm.com/"]
-}
-STANDARD_INSTALL_DIRS = [
-    "C:\\Program Files",
-    "C:\\Program Files (x86)",
-    "C:\\Users\\*\\AppData\\Local",
-    "/usr/bin",
-    "/usr/local/bin",
-    "/opt"
-]
+from config.settings import SYSTEM_PLATFORM, RESOURCES, STANDARD_INSTALL_DIRS
 
 
 # Log the environment variables that are important
@@ -125,7 +107,7 @@ def get_path_details(path, version_args):
     return (executable, version)
 
 
-def get_resources():
+def get_resources(search_standard_dirs=False):
     resource_results = {}
     covered_dirs = set()
 
@@ -133,7 +115,9 @@ def get_resources():
         version_args, url = details
         lv = get_latest_version(url)
         paths = find_executable_paths(resource)
-        extra_paths = []#search_in_standard_dirs(resource)
+        extra_paths = []
+        if search_standard_dirs: 
+            extra_paths = search_in_standard_dirs(resource)
         resource_results[resource] = {'online_details': {'latest_version': lv, 'url': url}, 'paths': {}}
 
         for path in paths:
@@ -147,16 +131,61 @@ def get_resources():
     return resource_results, covered_dirs
 
 
+
+def print_hierarchy(report, current, path_counts, indent=2):
+    """
+    Recursively prints a hierarchy of directories and the number of paths at each level.
+
+    :param report: List to append hierarchy lines.
+    :param current: Current level of the hierarchy.
+    :param path_counts: Dictionary mapping directory paths to their respective counts.
+    :param indent: Current indentation level.
+    """
+    for key, subdir in sorted(current.items()):
+        path = "\\".join([key] + list(subdir.keys()))
+        count = path_counts.get(path, 0)
+        report.append(f"{' ' * indent}{key} ({count})\\")
+        print_hierarchy(report, subdir, path_counts, indent + 2)
+
+
+def build_path_counts(resource_results):
+    """
+    Build a dictionary of path counts for each directory level.
+
+    :param resource_results: The resources and their respective paths.
+    :return: Dictionary with path counts for each directory.
+    """
+    path_counts = {}
+    for resource_details in resource_results.values():
+        for path in resource_details['paths']:
+            parts = path.split("\\")
+            for i in range(1, len(parts) + 1):
+                sub_path = "\\".join(parts[:i])
+                path_counts[sub_path] = path_counts.get(sub_path, 0) + 1
+    return path_counts
+
+
 def generate_report(resource_results, covered_dirs):
     report = []
+    path_counts = build_path_counts(resource_results)
+
     for resource, resource_details in resource_results.items():
         report.append(f"{resource}: {'No paths found' if len(resource_details['paths']) == 0 else ''}")
         report.append(f"\tLatest Available Version: {resource_details['online_details']['latest_version']}  -  {resource_details['online_details']['url']}")
+        hierarchy = {}
         for path, details in resource_details['paths'].items():
-            report.append(f"\tPath: {path}")
-            report.append(f"\t\t\tExecutable: {details['Executable']}")
-            report.append(f"\t\t\tVersion: {details['Version']}")
-            report.append(f"\t\t\tIn-Path Variable: {details['InPath']}")
+            if details['Executable'] == True:
+                report.append(f"\tPath: {path}")
+                report.append(f"\t\t\tExecutable: {details['Executable']}")
+                report.append(f"\t\t\tVersion: {details['Version']}")
+                report.append(f"\t\t\tIn-Path Variable: {details['InPath']}")
+            if details['InPath'] == False:
+                parts = path.split('\\')
+                current = hierarchy
+                for part in parts:
+                    current = current.setdefault(part, {})
+
+        print_hierarchy(report, hierarchy, path_counts)
         report.append("")
 
     uncovered_dirs = list_uncovered_path_dirs(covered_dirs)
@@ -164,6 +193,7 @@ def generate_report(resource_results, covered_dirs):
         report.append("Uncovered PATH Directories:")
         report.extend(f"  {d}" for d in uncovered_dirs)
     report.append("")
+
     env_vars = log_environment_variables()
     report.append("Environment Variables:")
     for var, value in env_vars.items():
